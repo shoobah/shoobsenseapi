@@ -1,3 +1,7 @@
+//This is an event emitter sending these events:
+//	'result' when the result is back from the storage
+//	'error' when there is an error
+
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 var azure = require('azure-storage');

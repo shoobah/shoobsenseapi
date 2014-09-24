@@ -16,8 +16,9 @@ server.route('/hello', {
 
 server.route('/data', {
     GET: function(req, res) {
-        console.log('Trying to read data from emitter');
+        console.log('Listening for emitter');
         rs.getData();
+        //When there is a result back from the storage
         rs.on('result', function(result) {
         	var stuff=[];
         	result.entries.forEach(function(item){
@@ -28,13 +29,14 @@ server.route('/data', {
         	});
             res.object(_.sortBy(stuff, 'time')).send();
         });
+        //If there's an error
         rs.on('error', function(error) {
-            console.log('Poop!', error);
+            console.log('Goddamn! An error! ', error);
             res.object(error).send();
         })
     }
 });
 
 server.listen(function(err) {
-    console.log('server is listening on port ', server.port);
+    console.log('This server is listening on port ', server.port);
 });
